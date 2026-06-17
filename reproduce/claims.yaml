@@ -30,7 +30,7 @@ analysis_A:
     python_recipe: |
       o = chorus.create_oracle('chrombpnet', use_environment=True, reference_fasta=hg38)
       o.load_pretrained_model(assay='DNASE', cell_type='HepG2')
-      o.predict_variant_effect("chr1:109274968", "chr1:109274968", ["G","T"], None)  # 1bp region OK post-#93
+      o.predict_variant_effect("chr1:109274968-109274969", "chr1:109274968", ["G","T"], None)  # minimal region auto-widens to the 2114bp native window (post-#93)
     expected: "+1.24"
     reproduced: "+1.374"
     tolerance: { log2FC: 0.2 }
@@ -87,7 +87,7 @@ analysis_A:
     oracle: legnet (LentiMPRA, HepG2)
     prompt: "Score rs12740374 MPRA reporter activity with LegNet (HepG2)."
     expected: "+0.30 (alt > ref)"
-    reproduced: "+0.297 (ref 0.372 -> alt 0.669)"
+    reproduced: "+0.347 (ref 0.371 -> alt 0.718), the conversational single 200bp window; the article rounds to +0.30"
     tolerance: { delta: 0.1 }
     pass_if: "alt > ref; Δ ~ +0.30"
 

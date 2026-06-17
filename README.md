@@ -24,7 +24,9 @@ reports PASS / FAIL / COULD-NOT-TEST. If it all passes, the article is reproduci
 Every claim in the article reproduces against **Chorus `main`** at/after commit `9f21266`
 (PRs #91 install fixes, #92 fine-mapping/LD fixes, #93 variant-scoring window fix — all merged
 2026-06-17). Earlier commits will **not** reproduce the fixed-input-oracle magnitudes (ChromBPNet,
-Borzoi) via the conversational path — install `main` (or pin ≥ `9f21266`).
+Borzoi) via the conversational path — install `main` (or pin ≥ `9f21266`). Regenerating the
+multi-oracle figure (Fig 3) additionally needs the per-oracle native-window fixes (PRs #94/#95),
+which are on `main` — so the simplest guidance is just **install `main`**.
 
 Provenance of the expected values: an independent reproduction review (see
 [chorus/audits/2026-06-16_blogpost_reproduction_report.md](https://github.com/pinellolab/chorus/blob/main/audits/2026-06-16_blogpost_reproduction_report.md)).
@@ -37,7 +39,7 @@ Hand `reproduce/PROMPT.md` to a fresh agent — it is self-contained. Or do it b
 # 1. Install chorus (main has all reproducibility fixes)
 git clone https://github.com/pinellolab/chorus.git && cd chorus
 mamba env create -f environment.yml && mamba activate chorus && pip install -e .
-chorus setup --oracle alphagenome --oracle chrombpnet --oracle legnet   # + tokens (see PROMPT.md)
+chorus setup --oracle alphagenome && chorus setup --oracle chrombpnet && chorus setup --oracle legnet   # one --oracle per call; + tokens (see PROMPT.md)
 # 2. Reproduce
 #    Follow reproduce/PROMPT.md (or REPRODUCE.md); for each entry in reproduce/claims.yaml,
 #    run the prompt (or python_recipe) and compare to expected ± tolerance.

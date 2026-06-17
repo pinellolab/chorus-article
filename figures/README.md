@@ -39,8 +39,10 @@ mamba run -n chorus-alphagenome python scripts/regenerate_multioracle.py --oracl
 mamba run -n chorus             python scripts/regenerate_multioracle.py --consolidate
 # screenshot examples/walkthroughs/validation/SORT1_rs12740374_multioracle/rs12740374_SORT1_multioracle_report.html
 ```
-The consensus table reads ChromBPNet **+1.37**, LegNet **+0.30**, AlphaGenome CEBPA **+2.77** /
-H3K27ac **+1.26** / CAGE **+1.52** / DNASE **+1.33** — the Analysis-A claims.
+The consensus table shows the freshly **reproduced** values (claims.yaml `reproduced`) — ChromBPNet
+**+1.37**, LegNet **+0.35**, AlphaGenome CEBPA **+2.77** / H3K27ac **+1.26** / CAGE **+1.52** /
+DNASE **+1.33**. These match the article's reported Analysis-A numbers within rounding (e.g. H3K27ac
+1.264 vs the article's +1.27; LegNet's single-window +0.347 vs the +0.30 the article reports).
 
 > Reproduction note: each oracle must be scored on its **native input window** centred on the variant.
 > A 1 Mb locus tiles the short-input models (LegNet 200 bp, ChromBPNet 2,114 bp) into thousands of

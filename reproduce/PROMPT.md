@@ -33,7 +33,9 @@ STEP 1 — Install Chorus from main (the article's "Try it yourself" steps, verb
   Analysis B depends on. On an older commit, claims A1/A4 and all of Analysis B will NOT reproduce.
 
 STEP 2 — Connect the MCP server (the article's primary, conversational mode).
-  claude mcp add chorus -- mamba run -n chorus chorus-mcp
+  Prefer the article's .mcp.json (it sets CHORUS_NO_TIMEOUT=1, which matters for long AlphaGenome 1 Mb runs):
+    curl -sL https://raw.githubusercontent.com/pinellolab/chorus/main/.mcp.json -o .mcp.json && claude
+  (equivalently: claude mcp add chorus -e CHORUS_NO_TIMEOUT=1 -- mamba run -n chorus chorus-mcp).
   Restart the agent so the server loads. Then DRIVE THE ARTICLE'S OWN PROMPTS — for each claim in
   reproduce/claims.yaml, send its `prompt` (a plain-language question) to the chorus tools, exactly
   as a reader following the article would. Do NOT pass empty assay_ids to AlphaGenome at 1 Mb (it is
@@ -60,10 +62,11 @@ STEP 4 — (Optional) Regenerate the figures from Chorus and confirm they match 
     mamba run -n chorus-alphagenome python scripts/regenerate_multioracle.py --oracle alphagenome
     mamba run -n chorus             python scripts/regenerate_multioracle.py --consolidate
   This writes examples/walkthroughs/validation/SORT1_rs12740374_multioracle/. The consensus table
-  there must read ChromBPNet +1.37, LegNet +0.30, AlphaGenome CEBPA +2.77 / H3K27ac +1.26 /
-  CAGE +1.52 / DNASE +1.33 — i.e. claims A1/A7/A3/A5/A6/A2. Figure 2's per-layer table and the
-  "predictions vs ground truth" panel are rendered from figures/fig2_sort1.html, whose numbers are
-  the same Analysis-A claims. (Rendering the report's IGV genome browser headless needs Chrome with
+  there must read ChromBPNet +1.37, LegNet +0.35, AlphaGenome CEBPA +2.77 / H3K27ac +1.26 /
+  CAGE +1.52 / DNASE +1.33 — the reproduced values of claims A1/A7/A3/A5/A6/A2 (within rounding of
+  the article's reported numbers, e.g. ChromBPNet +1.24, LegNet +0.30). Figure 2's per-layer table
+  and the "predictions vs ground truth" panel are rendered from figures/fig2_sort1.html and carry the
+  article's reported (expected) numbers. (Rendering the report's IGV genome browser headless needs Chrome with
   --disable-web-security so the file:// page may fetch igv.org's hg38 registry; the data figures do not.)
   NOTE: scoring each oracle on its NATIVE input window (not a 1 Mb locus) is required — a long locus
   tiles the short-input models (LegNet 200 bp, ChromBPNet 2,114 bp) and averages the single-variant
