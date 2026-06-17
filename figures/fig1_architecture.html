@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+  Figure 1 source — Chorus architecture. Chorus-house-style HTML+CSS rendering
+  (matches fig2_sort1.html). All seven oracles incl. EPInformer-seq; windows and
+  tool count match the article table + reproduce/claims.yaml (F1/F3/F4).
+  Render:  python /path/to/shot.py fig1_architecture.html fig_architecture.png 1600 2
+  For a more polished version, run figures/fig1_architecture_design_prompt.md
+  through a design tool and overwrite fig_architecture.png.
+-->
+<html lang="en"><head><meta charset="utf-8"><title>Figure 1 — Chorus architecture</title>
+<style>
+  :root{ --ink:#373737; --muted:#7f7f7f; --line:#e4e7ea; --blue:#2B81AF; --blue-dark:#25597f;
+         --blue-soft:#eaf3fa; --slate:#f4f6f8; --green:#1a8a52; --green-soft:#e9f7ef;
+         --amber:#b26b00; --amber-soft:#fbf3e4; }
+  *{box-sizing:border-box;}
+  body{ font-family:"Open Sans",-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink);
+        margin:0; padding:30px 34px 28px; background:#fff; width:1600px; }
+  .title{ text-align:center; margin-bottom:6px; }
+  .title h1{ font-size:40px; margin:0; letter-spacing:-.5px; color:var(--blue-dark); }
+  .title h1 .c{ color:var(--blue); }
+  .title .tag{ font-size:16px; color:var(--ink); margin-top:2px; font-weight:600; }
+  .title .sub{ font-size:13px; color:var(--muted); margin-top:1px; }
+  .flowarrow{ text-align:center; color:#c4c4c4; font-size:20px; line-height:1; margin:7px 0 6px; }
+
+  /* Layer 1 — agentic / MCP */
+  .agentic{ background:var(--blue-soft); border:1px solid #d0e4f1; border-radius:12px;
+            padding:14px 20px; }
+  .agentic .lab{ font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+                 color:var(--blue-dark); margin-bottom:9px; }
+  .chips{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .chip{ background:#fff; border:1px solid #d7e7f2; border-radius:8px; padding:9px 12px;
+         font-size:13px; font-weight:600; color:var(--blue-dark); text-align:center; }
+  .agentic .foot{ text-align:center; font-size:11.5px; color:var(--muted); margin-top:9px; }
+
+  /* Layer 2 — oracles */
+  .oraclewrap{ border:1px solid var(--line); border-radius:12px; padding:16px 18px 12px;
+               margin-top:2px; }
+  .oraclewrap .lab{ font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+                    color:var(--ink); margin-bottom:11px; }
+  .oracles{ display:grid; grid-template-columns:repeat(7,1fr); gap:11px; }
+  .ora{ border:1px solid var(--line); border-top:3px solid var(--blue); border-radius:9px;
+        padding:11px 11px 12px; display:flex; flex-direction:column; min-height:138px; }
+  .ora .nm{ font-size:14.5px; font-weight:800; color:var(--ink); line-height:1.12; }
+  .ora .win{ font-size:12px; font-weight:700; color:var(--blue); font-variant-numeric:tabular-nums;
+             margin:5px 0 7px; }
+  .ora .desc{ font-size:11.5px; color:var(--muted); line-height:1.35; }
+  /* context ruler */
+  .ruler{ position:relative; height:30px; margin:13px 4px 2px; }
+  .ruler .bar{ position:absolute; top:13px; left:0; right:0; height:3px;
+               background:linear-gradient(90deg,#bcd9ec,var(--blue)); border-radius:2px; }
+  .ruler .t{ position:absolute; top:18px; transform:translateX(-50%); font-size:10px;
+             color:var(--muted); font-variant-numeric:tabular-nums; }
+  .ruler .cap{ position:absolute; top:-2px; font-size:10px; color:var(--muted); font-weight:600; }
+
+  /* Layer 3 — outcomes */
+  .out{ display:grid; grid-template-columns:repeat(5,1fr); gap:11px; margin-top:2px; }
+  .tile{ background:var(--slate); border:1px solid var(--line); border-radius:9px; padding:11px 12px;
+         font-size:12.5px; font-weight:600; color:var(--ink); text-align:center; line-height:1.3; }
+  .tile .ic{ display:block; font-size:16px; margin-bottom:4px; }
+  .seclab{ font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+           color:var(--muted); text-align:center; margin:10px 0 8px; }
+</style></head>
+<body>
+
+  <div class="title">
+    <h1><span class="c">Chorus</span></h1>
+    <div class="tag">An agentic framework for orchestrating sequence-to-function genomic oracles</div>
+    <div class="sub">From natural language to multi-model regulatory analysis</div>
+  </div>
+
+  <!-- Layer 1 -->
+  <div class="agentic">
+    <div class="lab">Agentic AI orchestration &nbsp;·&nbsp; MCP server — 23 tools</div>
+    <div class="chips">
+      <div class="chip">Natural language → genomic analysis</div>
+      <div class="chip">Autonomous multi-step workflows</div>
+      <div class="chip">Cross-model comparison &amp; reasoning</div>
+      <div class="chip">Interactive genome-browser reports</div>
+    </div>
+    <div class="foot">Unified Python API &nbsp;·&nbsp; per-track genome-wide normalisation &nbsp;·&nbsp; reproducible per-oracle environments</div>
+  </div>
+
+  <div class="flowarrow">▼&nbsp;&nbsp;selects &amp; calls the right model(s)&nbsp;&nbsp;▼</div>
+
+  <!-- Layer 2 -->
+  <div class="oraclewrap">
+    <div class="lab">Seven sequence-to-function oracles — one interface</div>
+    <div class="oracles">
+      <div class="ora"><div class="nm">LegNet</div><div class="win">200 bp</div><div class="desc">MPRA / reporter activity of short regulatory elements</div></div>
+      <div class="ora"><div class="nm">ChromBPNet / BPNet</div><div class="win">2,114 bp</div><div class="desc">Base-pair chromatin accessibility + TF binding</div></div>
+      <div class="ora"><div class="nm">EPInformer-seq</div><div class="win">2,114 bp</div><div class="desc">Per-cell enhancer activity (DNase + H3K27ac), 11 Roadmap cells</div></div>
+      <div class="ora"><div class="nm">Sei</div><div class="win">4,096 bp</div><div class="desc">Regulatory effect across 21,907 chromatin profiles</div></div>
+      <div class="ora"><div class="nm">Enformer</div><div class="win">393,216 bp</div><div class="desc">Expression (CAGE), accessibility &amp; histone marks, long context</div></div>
+      <div class="ora"><div class="nm">Borzoi</div><div class="win">524,288 bp</div><div class="desc">Enformer-style outputs plus RNA-seq coverage</div></div>
+      <div class="ora"><div class="nm">AlphaGenome</div><div class="win">1,048,576 bp</div><div class="desc">Generalist: ATAC, DNase, CAGE, RNA-seq, splicing, PRO-CAP, TF/histone ChIP (5,731 tracks)</div></div>
+    </div>
+    <div class="ruler">
+      <div class="cap">input window:</div>
+      <div class="bar"></div>
+      <div class="t" style="left:9%">200 bp</div>
+      <div class="t" style="left:35%">2–4 kb</div>
+      <div class="t" style="left:64%">~400–520 kb</div>
+      <div class="t" style="left:93%">1 Mb</div>
+    </div>
+  </div>
+
+  <div class="flowarrow">▼&nbsp;&nbsp;comparable, normalised results&nbsp;&nbsp;▼</div>
+
+  <!-- Layer 3 -->
+  <div class="seclab">What you get out</div>
+  <div class="out">
+    <div class="tile"><span class="ic">🧬</span>Multi-layer variant-effect analysis</div>
+    <div class="tile"><span class="ic">🎯</span>Causal-variant fine-mapping</div>
+    <div class="tile"><span class="ic">📊</span>Cross-oracle consensus &amp; normalised browser</div>
+    <div class="tile"><span class="ic">✂️</span>In-silico mutagenesis &amp; sequence design</div>
+    <div class="tile"><span class="ic">⚡</span>High-throughput VCF / GWAS screening</div>
+  </div>
+
+</body></html>

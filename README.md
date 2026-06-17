@@ -13,10 +13,11 @@ reports PASS / FAIL / COULD-NOT-TEST. If it all passes, the article is reproduci
 | Path | What |
 |---|---|
 | `article/2026-006_chorus.md` | The article, in blog-publishable format (Hugo frontmatter + shortcodes). Source of truth for the prose and the prompts. |
-| `reproduce/REPRODUCE.md` | Step-by-step instructions for the verifying agent: install, tokens, MCP, then run each claim and compare. |
+| `reproduce/PROMPT.md` | **The one-shot reproduction prompt** — copy it to a fresh agent (or follow it yourself) to reproduce the whole package: install, run the article's prompts, verify each claim, regenerate the figures, report a verdict. Start here. |
 | `reproduce/claims.yaml` | **Machine-actionable manifest** — one entry per claim: the conversational prompt, a deterministic Python recipe, the expected value, the tolerance, and the PASS criterion. |
+| `reproduce/REPRODUCE.md` | Long-form version of the prompt: install, tokens, MCP, then run each claim and compare. |
 | `reproduce/CLAUDE.md` | Drop-in guidance so an agent run in this repo knows its job. |
-| `figures/` | Article figures (placeholders for now — see `figures/README.md`). |
+| `figures/` | The three article figures + their sources. Fig 2/Fig 3 are regenerated from Chorus (numbers match `claims.yaml`); Fig 1 ships as a design brief. See `figures/README.md`. |
 
 ## Reproducibility status (2026-06-17)
 
@@ -30,13 +31,15 @@ Provenance of the expected values: an independent reproduction review (see
 
 ## Quick start (verifying agent)
 
+Hand `reproduce/PROMPT.md` to a fresh agent — it is self-contained. Or do it by hand:
+
 ```bash
 # 1. Install chorus (main has all reproducibility fixes)
 git clone https://github.com/pinellolab/chorus.git && cd chorus
 mamba env create -f environment.yml && mamba activate chorus && pip install -e .
-chorus setup --oracle alphagenome --oracle chrombpnet --oracle legnet   # + tokens (see REPRODUCE.md)
+chorus setup --oracle alphagenome --oracle chrombpnet --oracle legnet   # + tokens (see PROMPT.md)
 # 2. Reproduce
-#    Follow reproduce/REPRODUCE.md; for each entry in reproduce/claims.yaml,
+#    Follow reproduce/PROMPT.md (or REPRODUCE.md); for each entry in reproduce/claims.yaml,
 #    run the prompt (or python_recipe) and compare to expected ± tolerance.
 ```
 

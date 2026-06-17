@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--
+  Figure 2 source — rs12740374 (SORT1): per-layer multi-oracle predictions vs.
+  experimental ground truth (Musunuru et al., 2010).
+
+  This is the editorial "predictions vs ground truth" composition for Figure 2.
+  The per-layer numbers are NOT hand-entered narrative: every value is one of the
+  reproduced claims in ../reproduce/claims.yaml (Analysis A), so this figure stays
+  self-consistent with the article and the reproduction harness. Regenerate the PNG
+  with:  python /Users/lp698/chorus/scripts/screenshot_report.py fig2_sort1.html fig_sort1_comparison.png
+  House style (Open Sans + slate/blue palette) matches the chorus HTML reports.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Figure 2 — rs12740374 predictions vs ground truth</title>
+<style>
+  :root {
+    --ink: #373737; --muted: #7f7f7f; --line: #e4e7ea;
+    --blue: #2B81AF; --blue-dark: #25597f; --blue-soft: #eaf3fa;
+    --gain: #1a8a52; --gain-soft: #e9f7ef; --amber: #b26b00; --amber-soft: #fbf3e4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Open Sans", -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink); margin: 0; padding: 28px 30px 26px;
+    background: #ffffff; width: 1180px;
+  }
+  .hero { border-bottom: 3px solid var(--blue); padding-bottom: 12px; margin-bottom: 18px; }
+  .hero .kicker { font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--blue); font-weight: 700; }
+  .hero h1 { font-size: 22px; margin: 4px 0 2px; font-weight: 700; }
+  .hero .sub { font-size: 13px; color: var(--muted); }
+  .hero .sub code { background: #f4f6f8; padding: 1px 6px; border-radius: 4px;
+    font-size: 12px; color: var(--blue-dark); }
+
+  table.layers { width: 100%; border-collapse: collapse; margin: 4px 0 22px;
+    font-size: 13px; }
+  table.layers th { text-align: left; font-size: 11px; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--line);
+    padding: 7px 10px; }
+  table.layers td { padding: 9px 10px; border-bottom: 1px solid var(--line);
+    vertical-align: middle; }
+  table.layers td.layer { font-weight: 600; }
+  table.layers td.layer small { display:block; font-weight: 400; color: var(--muted);
+    font-size: 11px; }
+  .val { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .val.up { color: var(--gain); } .val.flat { color: var(--amber); }
+  .pill { display:inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px;
+    border-radius: 11px; }
+  .pill.up { background: var(--gain-soft); color: var(--gain); }
+  .pill.flat { background: var(--amber-soft); color: var(--amber); }
+  .src { color: var(--muted); font-size: 11px; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .card { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .card .head { padding: 11px 16px; font-size: 12px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; }
+  .card.pred .head { background: var(--blue-soft); color: var(--blue-dark);
+    border-bottom: 1px solid #d7e7f2; }
+  .card.truth .head { background: #f3f0ec; color: #6b5836; border-bottom: 1px solid #e7e0d6; }
+  .card ul { margin: 0; padding: 14px 20px 16px; }
+  .card li { font-size: 13px; line-height: 1.5; margin-bottom: 11px; }
+  .card li:last-child { margin-bottom: 2px; }
+  .card li b { color: var(--ink); }
+  .card.pred .n { color: var(--blue-dark); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .cite { font-size: 11px; color: var(--muted); padding: 0 20px 14px; }
+  .footer { margin-top: 18px; font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--line); padding-top: 12px; line-height: 1.5; }
+  .footer b { color: var(--amber); }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="kicker">Multi-oracle validation · Output</div>
+    <h1>rs12740374 — minor (T) allele at the 1p13 / <i>SORT1</i> locus</h1>
+    <div class="sub"><code>chr1:109,274,968 G&gt;T</code> &nbsp;·&nbsp; scored across six regulatory layers by three independent oracles</div>
+  </div>
+
+  <table class="layers">
+    <thead><tr>
+      <th style="width:34%">Layer</th><th style="width:40%">Oracle prediction (alt vs ref)</th>
+      <th style="width:14%">Direction</th><th style="width:12%"></th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="layer">Chromatin accessibility <small>DNase / ATAC · HepG2</small></td>
+        <td><span class="val up">+1.24</span> ChromBPNet &nbsp;·&nbsp; <span class="val up">+1.34</span> AlphaGenome <span class="src">log2FC</span></td>
+        <td><span class="pill up">opens ↑</span></td><td></td>
+      </tr>
+      <tr>
+        <td class="layer">TF binding — C/EBP <small>ChIP-TF · HepG2</small></td>
+        <td><span class="val up">+2.5</span> BPNet (CEBPB) &nbsp;·&nbsp; <span class="val up">+2.7</span> AlphaGenome (CEBPA) <span class="src">log2FC</span></td>
+        <td><span class="pill up">gains site ↑</span></td><td></td>
+      </tr>
+      <tr>
+        <td class="layer">Histone mark — H3K27ac <small>ChIP-histone · HepG2</small></td>
+        <td><span class="val up">+1.27</span> AlphaGenome <span class="src">log2FC</span></td>
+        <td><span class="pill up">↑</span></td><td></td>
+      </tr>
+      <tr>
+        <td class="layer">TSS activity — CAGE / eRNA <small>HepG2</small></td>
+        <td><span class="val up">+1.52</span> AlphaGenome <span class="src">log2FC</span></td>
+        <td><span class="pill up">↑</span></td><td></td>
+      </tr>
+      <tr>
+        <td class="layer">Reporter activity — MPRA <small>LentiMPRA · HepG2</small></td>
+        <td><span class="val up">+0.30</span> LegNet &nbsp;<span class="src">Δ(alt−ref); ref 0.37 → alt 0.67</span></td>
+        <td><span class="pill up">alt &gt; ref</span></td><td></td>
+      </tr>
+      <tr>
+        <td class="layer"><i>SORT1</i> gene expression <small>RNA-seq · 1 Mb window · HepG2</small></td>
+        <td><span class="val flat">&lt; 2×</span> AlphaGenome &nbsp;<span class="src">small rise (lnFC ≈ +0.59)</span></td>
+        <td><span class="pill flat">small ↑</span></td><td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cols">
+    <div class="card pred">
+      <div class="head">What the predictions say</div>
+      <ul>
+        <li>Minor (T) allele <b>opens chromatin</b> in liver (HepG2): ChromBPNet <span class="n">+1.24</span>, AlphaGenome <span class="n">+1.34</span>.</li>
+        <li><b>Gains a C/EBP binding site</b>: BPNet CEBPB head <span class="n">+2.5</span>, AlphaGenome CEBPA <span class="n">+2.7</span>.</li>
+        <li><b>Gains the H3K27ac</b> active-enhancer mark: AlphaGenome <span class="n">+1.27</span>.</li>
+        <li><b>eRNA at the enhancer</b>: AlphaGenome CAGE <span class="n">+1.52</span>.</li>
+        <li><b>Single-fragment MPRA at the SNP is up</b>: LegNet <span class="n">+0.30</span>, alt &gt; ref.</li>
+        <li><b><i>SORT1</i> promoter and transcript rise</b>, but only a small amount — well under 2-fold (AlphaGenome).</li>
+      </ul>
+    </div>
+    <div class="card truth">
+      <div class="head">Ground truth — Musunuru et al., 2010</div>
+      <ul>
+        <li>The variant lies in a <b>liver enhancer</b>; the minor allele creates the functional site.</li>
+        <li>Minor allele <b>creates a C/EBP site</b>, confirmed by EMSA and ChIP.</li>
+        <li>Consistent with an <b>active liver enhancer</b> (H3K27ac, enhancer transcription).</li>
+        <li>Matches the original <b>luciferase reporter</b> (alt &gt; ref).</li>
+        <li><b><i>SORT1</i> more than 12-fold higher</b> in minor-allele-homozygous human liver.</li>
+        <li>Lower hepatic <b>VLDL secretion</b>; plasma <b>LDL-C down up to 16 mg/dL</b> (two copies); <b>MI risk down ~40%</b>.</li>
+      </ul>
+      <div class="cite">Musunuru K. <i>et al.</i> <i>Nature</i> <b>466</b>, 714 (2010). PMID 20686566. doi:10.1038/nature09266</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    The models recover the <b style="color:var(--gain)">direction</b> and the mechanism at every layer.
+    The one place they fall short is <b>magnitude</b>: a predicted <i>SORT1</i> rise well under 2-fold
+    against the measured &gt;12-fold in liver — treat predicted fold changes as ordinal, not quantitative.
+    Every number above is a reproduced claim in <code>reproduce/claims.yaml</code> (Analysis A).
+  </div>
+
+</body>
+</html>
