@@ -162,8 +162,8 @@ analysis_B:
     oracle: alphagenome (TF scan) + ISM
     prompt: "Which TF motif does rs9504151 disrupt? Scan AlphaGenome's TF tracks and run saturation mutagenesis."
     expected: "ATF4 (with CEBPB also high), binding lost on alt; ISM converges on an ATF4 motif"
-    reproduced: "top TF effects (binding LOST): CEBPB −3.99, ATF4 −3.97, CEBPB −3.49, CEBPA −3.12, ATF3 −3.00 — ATF4 co-top with CEBPB"
-    pass_if: "ATF4 (and CEBPB) at the top of the TF scan, binding lost on alt"
+    reproduced: "top TF effects (binding LOST): CEBPB −3.99, ATF4 −3.97, CEBPB −3.49, CEBPA −3.12, ATF3 −3.00 — ATF4 co-top with CEBPB; score_ism on LegNet/AlphaGenome/ChromBPNet all converge on the ATF4 motif TGATGCAA centred on the variant (Fig 5)"
+    pass_if: "ATF4 (and CEBPB) at the top of the TF scan, binding lost on alt; score_ism converges on the ATF4 motif"
 
   - id: B7_legnet_celltype_caveat
     layer: fact
@@ -183,9 +183,9 @@ facts:
     reproduced: "metadata loads 5731 (backgrounds cover 5168 subset)"
     pass_if: "AlphaGenome exposes 5,731 tracks"
   - id: F3_mcp_tools
-    expected: "23 tools"   # article draft said 22; corrected to 23
-    reproduced: "23 registered (the 22 documented + recommend_alphagenome_backend)"
-    pass_if: "the MCP server registers 23 tools incl. fine_map_causal_variant"
+    expected: "24 tools"   # 23 + score_ism (in-silico saturation mutagenesis), added with the ISM feature
+    reproduced: "24 registered (the 23 documented + score_ism)"
+    pass_if: "the MCP server registers 24 tools incl. fine_map_causal_variant and score_ism"
   - id: F4_specs
     expected: "windows/resolutions per the oracle table"
     reproduced: "enformer 393216/128, borzoi 524288/32, chrombpnet 2114/1, sei 4096, legnet 200, alphagenome 1048576/1, epinformerseq 2114"
