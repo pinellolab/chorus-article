@@ -8,6 +8,8 @@ The goal: a fresh agent reads the article, installs [Chorus](https://github.com/
 runs the prompts/recipes, and checks each claim against an expected value + tolerance — then
 reports PASS / FAIL / COULD-NOT-TEST. If it all passes, the article is reproducible end-to-end.
 
+📖 **Read the article (figures render inline on GitHub): [`article/2026-006_chorus.md`](article/2026-006_chorus.md)**
+
 ## Layout
 
 | Path | What |
