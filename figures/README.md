@@ -4,7 +4,7 @@ Three figures, all consistent with `../reproduce/claims.yaml` (Analysis A) and t
 
 | File | Figure | How it is made | Numbers |
 |---|---|---|---|
-| `fig_architecture.png` | Fig 1 — Chorus's seven oracles behind one interface + an agentic (MCP) layer | Rendered from `fig_architecture.html` (flattened from a Claude Design project; logos `logo_burst.png` + `logo_wordmark.png`) | windows/tool-count per `claims.yaml` F1/F3/F4 |
+| `fig_architecture.png` | Fig 1 — Chorus's seven oracles behind one interface + an agentic (MCP) layer | Authors' high-quality export from the Claude Design project; `fig_architecture.html` + `logo_burst.png`/`logo_wordmark.png` are the near-identical editable source | windows/tool-count per `claims.yaml` F1/F3/F4 |
 | `fig_sort1_comparison.png` | Fig 2 — rs12740374 per-layer predictions next to the Musunuru (2010) ground truth | Rendered from `fig2_sort1.html` (chorus house style) | Analysis-A claims (A1–A8) |
 | `fig_crossoracle_browser.png` | Fig 3 — cross-oracle consensus + shared genome browser | Screenshot of the chorus multi-oracle report (pure chorus output) | Analysis-A claims |
 
