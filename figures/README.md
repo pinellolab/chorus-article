@@ -45,5 +45,6 @@ H3K27ac **+1.26** / CAGE **+1.52** / DNASE **+1.33** — the Analysis-A claims.
 > Reproduction note: each oracle must be scored on its **native input window** centred on the variant.
 > A 1 Mb locus tiles the short-input models (LegNet 200 bp, ChromBPNet 2,114 bp) into thousands of
 > windows and averages the single-variant effect to ~0 (LegNet would read +0.000, ChromBPNet ~+0.68).
-> `regenerate_multioracle.py` does this correctly; the genome-browser sub-panel renders via IGV.js,
-> which needs Chrome with `--disable-web-security` to fetch the hg38 registry from a `file://` page.
+> `regenerate_multioracle.py` does this correctly as of PR #94 (chorus `main` ≥ commit `336d64a`);
+> the genome-browser sub-panel renders via IGV.js, which needs Chrome with `--disable-web-security`
+> to fetch the hg38 registry from a `file://` page.

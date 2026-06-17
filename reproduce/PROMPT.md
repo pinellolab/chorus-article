@@ -67,8 +67,8 @@ STEP 4 — (Optional) Regenerate the figures from Chorus and confirm they match 
   --disable-web-security so the file:// page may fetch igv.org's hg38 registry; the data figures do not.)
   NOTE: scoring each oracle on its NATIVE input window (not a 1 Mb locus) is required — a long locus
   tiles the short-input models (LegNet 200 bp, ChromBPNet 2,114 bp) and averages the single-variant
-  effect to ~0. The committed regenerate_multioracle.py does this; if your checkout predates that fix
-  and the consensus shows LegNet +0.000 / ChromBPNet ~+0.68, update chorus.
+  effect to ~0. regenerate_multioracle.py does this as of PR #94 (chorus main >= commit 336d64a);
+  on an older checkout the consensus shows LegNet +0.000 / ChromBPNet ~+0.68 — update chorus.
 
 STEP 5 — Output.
   A table: claim_id | expected | your_value | PASS/FAIL/COULD-NOT-TEST | note
