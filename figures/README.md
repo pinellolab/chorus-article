@@ -8,7 +8,8 @@ All figures are consistent with `../reproduce/claims.yaml` and the article prose
 | `fig_sort1_comparison.png` | Fig 2 — rs12740374 per-layer predictions next to the Musunuru (2010) ground truth | Rendered from `fig2_sort1.html` (chorus house style) | Analysis-A claims (A1–A8) |
 | `fig_crossoracle_browser.png` | Fig 3 — cross-oracle consensus + shared genome browser | Screenshot of the chorus multi-oracle report (pure chorus output) | Analysis-A claims |
 | `fig_sort1_tf_scan.png` | Fig 4 — SORT1 TF-ChIP scan (no prior; C/EBP family tops) | `chorus scripts/regenerate_analysis_figures.py tf_scan` from an AlphaGenome `discover_variant_effects` run (HepG2) | claims A3/A9 (CEBPB +3.1, CEBPA +2.8) |
-| `fig_rs9504151_ism.png` | Fig 5 — rs9504151 multi-oracle ISM motif logos (converge on ATF4) | `chorus scripts/regenerate_analysis_figures.py ism` from `score_ism`/`saturation_mutagenesis` on LegNet + AlphaGenome + ChromBPNet | claims B6 (ATF4 motif TGATGCAA) |
+| `fig_rs9504151_finemap.png` | Fig 5 — rs9504151 causal-variant prioritisation (Top-N table) | `chorus scripts/regenerate_analysis_figures.py finemap` from `fetch_ld_variants` + `prioritize_causal_variants` (AlphaGenome lung-fibroblast tracks, 56 CEU SNV proxies) | claims B2 (rs9504151 #1; rs62384944 → rank 4) |
+| `fig_rs9504151_ism.png` | Fig 6 — rs9504151 multi-oracle ISM motif logos (converge on ATF4) | `chorus scripts/regenerate_analysis_figures.py ism` from `score_ism`/`saturation_mutagenesis` on LegNet + AlphaGenome + ChromBPNet | claims B6 (ATF4 motif TGATGCAA) |
 
 **Analysis panels (Fig 4+)** are regenerated from Chorus by `scripts/regenerate_analysis_figures.py` (in the chorus repo) reading the JSON outputs of `discover_variant_effects` (TF scan) and the new `saturation_mutagenesis` / `score_ism` (ISM logos via logomaker). The ISM logos are model-independent evidence: three oracles trained on different assays all converge on the same ATF4 motif.
 
