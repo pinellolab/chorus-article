@@ -1,0 +1,192 @@
+# Reproduction manifest for blog post 2026-006 ("Chorus: chatting with genomic oracles")
+#
+# Each claim has:
+#   id            — stable identifier
+#   layer/oracle  — what is measured, by which oracle
+#   prompt        — the conversational prompt a reader/agent gives (drives the MCP path)
+#   python_recipe — a deterministic Python call (use this for an exact numeric check)
+#   expected      — the value the article reports
+#   reproduced    — the value an independent re-run got (2026-06-17, chorus main @ 9f21266)
+#   tolerance     — PASS band (numbers are deterministic given weights/window)
+#   pass_if       — the acceptance criterion
+#
+# Conventions: chromatin/TF/CAGE/histone effects are log2FC; MPRA is Δ(alt−ref); RNA is lnFC.
+# Variant A: rs12740374  chr1:109274968 G>T  (SORT1 / 1p13 LDL locus)
+# Variant B: rs9504151    chr6:4577675 T>A   (FEV1/FVC / CDYL locus)
+# REQUIRES chorus main >= commit 9f21266 (PRs #91/#92/#93).
+
+meta:
+  chorus_min_commit: "9f21266"
+  variantA: { rsid: rs12740374, hg38: "chr1:109274968", ref: G, alt: T, gene: SORT1 }
+  variantB: { rsid: rs9504151,  hg38: "chr6:4577675",   ref: T, alt: A, gene: CDYL }
+  tolerance_default: { log2FC: 0.2, rank: 2 }
+
+# ─────────────────────────── Analysis A — SORT1 / rs12740374 ───────────────────────────
+analysis_A:
+  - id: A1_chrombpnet_accessibility
+    layer: chromatin_accessibility
+    oracle: chrombpnet (DNASE, HepG2)
+    prompt: "Score chr1:109274968 G>T using ChromBPNet. Which cell types change chromatin accessibility the most?"
+    python_recipe: |
+      o = chorus.create_oracle('chrombpnet', use_environment=True, reference_fasta=hg38)
+      o.load_pretrained_model(assay='DNASE', cell_type='HepG2')
+      o.predict_variant_effect("chr1:109274968", "chr1:109274968", ["G","T"], None)  # 1bp region OK post-#93
+    expected: "+1.24"
+    reproduced: "+1.374"
+    tolerance: { log2FC: 0.2 }
+    pass_if: "alt increases accessibility; HepG2 among the strongest cell types; log2FC ~ +1.2..+1.4"
+    note: "Requires PR #93 (window fix) for the conversational/1bp path; pre-#93 returns ~+0.32."
+
+  - id: A2_alphagenome_accessibility
+    layer: chromatin_accessibility
+    oracle: alphagenome (DNASE/EFO:0001187 = HepG2)
+    prompt: "With AlphaGenome, score rs12740374 (chr1:109274968 G>T) DNase accessibility in HepG2."
+    expected: "+1.34"
+    reproduced: "+1.333"
+    tolerance: { log2FC: 0.1 }
+    pass_if: "alt increases accessibility; log2FC ~ +1.33"
+
+  - id: A3_alphagenome_cebp
+    layer: tf_binding
+    oracle: alphagenome (CHIP_TF CEBPA, HepG2)
+    prompt: "Which transcription factor's predicted binding changes most at chr1:109274968 G>T in HepG2? (scan all TF tracks, no prior)"
+    expected: "+2.7 (CEBPA)"
+    reproduced: "+2.767 (CEBPA); CEBPB +3.05"
+    tolerance: { log2FC: 0.2 }
+    pass_if: "C/EBP family tops the TF scan; CEBPA log2FC ~ +2.7..+2.8"
+
+  - id: A4_bpnet_cebp
+    layer: tf_binding
+    oracle: bpnet (CHIP CEBPB, HepG2 — model BP000275)
+    prompt: "Confirm the C/EBP binding gain at chr1:109274968 G>T with a C/EBP-specific BPNet head."
+    python_recipe: |
+      o.load_pretrained_model(assay='CHIP', cell_type='HepG2', TF='CEBPB')
+    expected: "+2.5 (CEBPB)"
+    reproduced: "+2.52 (+strand) / +2.39 (−)"
+    tolerance: { log2FC: 0.3 }
+    pass_if: "strong binding gain on alt (ref ~3 -> alt ~21); log2FC ~ +2.5"
+
+  - id: A5_alphagenome_h3k27ac
+    layer: histone_marks
+    oracle: alphagenome (CHIP_HISTONE H3K27ac, HepG2)
+    expected: "+1.27"
+    reproduced: "+1.264"
+    tolerance: { log2FC: 0.1 }
+    pass_if: "H3K27ac increases on alt; log2FC ~ +1.27"
+
+  - id: A6_alphagenome_cage
+    layer: tss_activity
+    oracle: alphagenome (CAGE, HepG2)
+    expected: "+1.52"   # article draft said +1.47; corrected to +1.52
+    reproduced: "+1.525"
+    tolerance: { log2FC: 0.1 }
+    pass_if: "eRNA/CAGE increases on alt; log2FC ~ +1.52"
+
+  - id: A7_legnet_mpra
+    layer: promoter_activity
+    oracle: legnet (LentiMPRA, HepG2)
+    prompt: "Score rs12740374 MPRA reporter activity with LegNet (HepG2)."
+    expected: "+0.30 (alt > ref)"
+    reproduced: "+0.297 (ref 0.372 -> alt 0.669)"
+    tolerance: { delta: 0.1 }
+    pass_if: "alt > ref; Δ ~ +0.30"
+
+  - id: A8_alphagenome_sort1_rna
+    layer: gene_expression
+    oracle: alphagenome (RNA-seq, HepG2; gene SORT1)
+    prompt: "Does rs12740374 change SORT1 expression? Use AlphaGenome (1 Mb window) with RNA-seq."
+    expected: "rises, well under 2-fold"
+    reproduced: "max lnFC ~ +0.59 (~1.8x)"
+    tolerance: { directional: true }
+    pass_if: "SORT1 RNA up; magnitude < 2-fold (the article's underestimation point)"
+
+  - id: A9_cebp_no_prior
+    layer: tf_discovery
+    oracle: alphagenome (TF scan, HepG2)
+    expected: "C/EBP family top with no prior"
+    reproduced: "CEBPB +3.05, CEBPA +2.77, CEBPG +2.27, CEBPD +1.82 top the 539-track HepG2 TF scan"
+    pass_if: "C/EBP family members occupy the top of the TF-effect ranking"
+
+  - id: A10_distance_longcontext
+    layer: fact
+    expected: "SORT1 promoter ~100 kb away; only a long-context oracle reaches it"
+    reproduced: "nearest SORT1 TSS chr1:109393357 = 118,389 bp; Enformer output 114,688 bp is just short; ChromBPNet 2 kb / LegNet 200 bp cannot; AlphaGenome 1 Mb covers it"
+    pass_if: "distance ~100-120 kb; gene-level claim only via AlphaGenome"
+
+# ─────────────────────────── Analysis B — rs9504151 / CDYL ───────────────────────────
+analysis_B:
+  - id: B1_ld_block
+    layer: fact
+    note: "Article draft said '18 variants in LD r2>0.8, rank-2 ~0.9' — REMOVED. Verified not in the Sniff paper (which resolves the locus to a single variant, PIP=0.51)."
+    prompt: "How many variants are in LD r2>0.8 with rs9504151? (LDlink, 1000G CEU)"
+    expected: "tight LD block, ~54 (CEU)/49 (EUR) proxies, many at r2=1.0"
+    reproduced: "54 unique (CEU, SNVs) / 49 (EUR); rs6913171/rs9502199/rs4960004/... at r2=1.0"
+    pass_if: "dozens of proxies, many near r2=1.0 (NOT 18; NOT a clean rank-2 at 0.9)"
+
+  - id: B2_alphagenome_rank1
+    layer: prioritization
+    oracle: alphagenome (lung-fibroblast tracks)
+    prompt: "Fine-map the rs9504151 credible set with AlphaGenome. Which variant ranks first?"
+    python_recipe: "fine_map_causal_variant('alphagenome', lead_variant='rs9504151', ldlink_token=..., gene_name='CDYL')"
+    expected: "rs9504151 ranked #1"
+    reproduced: "rs9504151 #1/56 (composite 0.995, alt effect −1.363)"
+    tolerance: { rank: 1 }
+    pass_if: "rs9504151 is rank #1. Requires PRs #92 (LD alleles + window) and #93."
+
+  - id: B3_chrombpnet_rank1
+    layer: prioritization
+    oracle: chrombpnet (DNASE, IMR-90 = lung fibroblast)
+    prompt: "Re-score the credible set with a ChromBPNet lung-fibroblast (IMR-90) DNase model. Does rs9504151 stay #1?"
+    expected: "rs9504151 stays #1"
+    reproduced: "rs9504151 #1/56 (composite 0.896, −0.985); r2≈0.93 neighbour rs62384944 -> rank 5"
+    tolerance: { rank: 1 }
+    pass_if: "rs9504151 #1 in the lung-fibroblast model"
+
+  - id: B4_lungfib_signature
+    layer: chromatin_accessibility + histone_marks
+    oracle: alphagenome (CL:0002553 lung fibroblast) + chrombpnet (IMR-90)
+    expected: "active CRE in lung fibroblast; accessibility + active histone marks DROP on alt"
+    reproduced: "AG DNASE −1.35, H3K27ac −1.20; ChromBPNet IMR-90 DNASE −0.985 (active CRE, high ref signal)"
+    pass_if: "accessibility and H3K27ac decrease on the alt allele in lung fibroblast"
+
+  - id: B5_rna_no_change
+    layer: gene_expression
+    oracle: alphagenome
+    expected: "no significant RNA expression change"
+    reproduced: "max gene-expression |lnFC| = 0.009 (~1.01x)"
+    tolerance: { directional: true }
+    pass_if: "RNA change is negligible"
+
+  - id: B6_atf4_factor
+    layer: tf_discovery
+    oracle: alphagenome (TF scan) + ISM
+    prompt: "Which TF motif does rs9504151 disrupt? Scan AlphaGenome's TF tracks and run saturation mutagenesis."
+    expected: "ATF4 (with CEBPB also high), binding lost on alt; ISM converges on an ATF4 motif"
+    reproduced: "top TF effects (binding LOST): CEBPB −3.99, ATF4 −3.97, CEBPB −3.49, CEBPA −3.12, ATF3 −3.00 — ATF4 co-top with CEBPB"
+    pass_if: "ATF4 (and CEBPB) at the top of the TF scan, binding lost on alt"
+
+  - id: B7_legnet_celltype_caveat
+    layer: fact
+    note: "Article draft said LegNet's nearest lines are 'HepG2 or A549' — CORRECTED: A549 is not in LegNet."
+    expected: "LegNet has no lung fibroblast (panel = K562, HepG2, WTC11), so its evidence is cell-type-mismatched"
+    reproduced: "LEGNET_AVAILABLE_CELLTYPES = ['K562','HepG2','WTC11']"
+    pass_if: "LegNet panel is exactly K562/HepG2/WTC11; no lung fibroblast"
+
+# ─────────────────────────── Repo / spec facts ───────────────────────────
+facts:
+  - id: F1_seven_oracles
+    expected: "7 oracles incl. EPInformer-seq"
+    reproduced: "list_oracles -> 7 models (+ alphagenome_pt backend); epinformerseq present"
+    pass_if: "EPInformer-seq is one of the seven"
+  - id: F2_alphagenome_tracks
+    expected: "5,731 tracks"
+    reproduced: "metadata loads 5731 (backgrounds cover 5168 subset)"
+    pass_if: "AlphaGenome exposes 5,731 tracks"
+  - id: F3_mcp_tools
+    expected: "23 tools"   # article draft said 22; corrected to 23
+    reproduced: "23 registered (the 22 documented + recommend_alphagenome_backend)"
+    pass_if: "the MCP server registers 23 tools incl. fine_map_causal_variant"
+  - id: F4_specs
+    expected: "windows/resolutions per the oracle table"
+    reproduced: "enformer 393216/128, borzoi 524288/32, chrombpnet 2114/1, sei 4096, legnet 200, alphagenome 1048576/1, epinformerseq 2114"
+    pass_if: "specs match the article table"
