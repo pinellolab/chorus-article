@@ -4,20 +4,21 @@ Three figures, all consistent with `../reproduce/claims.yaml` (Analysis A) and t
 
 | File | Figure | How it is made | Numbers |
 |---|---|---|---|
-| `fig_architecture.png` | Fig 1 — Chorus's seven oracles behind one interface + an agentic (MCP) layer | Rendered from `fig1_architecture.html` (chorus house style); a polished alternative can be generated from `fig1_architecture_design_prompt.md` | windows/tool-count per `claims.yaml` F1/F3/F4 |
+| `fig_architecture.png` | Fig 1 — Chorus's seven oracles behind one interface + an agentic (MCP) layer | Rendered from `fig_architecture.html` (flattened from a Claude Design project; logos `logo_burst.png` + `logo_wordmark.png`) | windows/tool-count per `claims.yaml` F1/F3/F4 |
 | `fig_sort1_comparison.png` | Fig 2 — rs12740374 per-layer predictions next to the Musunuru (2010) ground truth | Rendered from `fig2_sort1.html` (chorus house style) | Analysis-A claims (A1–A8) |
 | `fig_crossoracle_browser.png` | Fig 3 — cross-oracle consensus + shared genome browser | Screenshot of the chorus multi-oracle report (pure chorus output) | Analysis-A claims |
 
 ## Regenerating
 
-**Fig 1** is the one non-data figure. The committed `fig_architecture.png` is rendered from
-`fig1_architecture.html` (same house style as Fig 2; all seven oracles incl. EPInformer-seq,
-23-tool MCP layer). For a more polished version, run `fig1_architecture_design_prompt.md` through a
-design tool and overwrite `fig_architecture.png`. (The original committed file was outdated — six
-oracles, missing EPInformer-seq.)
+**Fig 1** is the one non-data figure — a Chorus-branded architecture diagram (logo lockup, agentic
+MCP layer with 23 tools, all seven oracles incl. EPInformer-seq with their input windows, a context
+ruler, and the outcome tiles). It was authored in a Claude Design project
+(`https://claude.ai/design/p/c23284e8-727f-4de2-97be-61a15b88c2ae`) and flattened to a standalone,
+self-contained `fig_architecture.html` (fixed 1600×1080 canvas; assets `logo_burst.png` +
+`logo_wordmark.png`) so it renders without the design runtime:
 ```bash
-python /path/to/shot.py figures/fig1_architecture.html figures/fig_architecture.png 1600 3
-# then trim trailing whitespace (PIL ImageChops.difference → getbbox)
+python /path/to/shot.py figures/fig_architecture.html figures/fig_full.png 1600 6
+# then crop the top 1600×1080 canvas (3200×2160 @2x): PIL Image.crop((0,0,3200,2160))
 ```
 
 **Fig 2** — edit/keep `fig2_sort1.html`, then:

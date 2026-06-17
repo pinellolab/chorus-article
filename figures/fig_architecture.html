@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!--
+  Figure 1 source — Chorus architecture. Imported from the Claude Design project
+  (fig_architecture.dc.html) and flattened to a standalone, self-contained HTML so it
+  renders without the design runtime. Assets: logo_burst.png, logo_wordmark.png.
+  Render:  python /path/to/shot.py fig_architecture.html fig_architecture.png 1600
+  Fixed 1600x1080 canvas; all seven oracles incl. EPInformer-seq; 23-tool MCP layer.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+</style>
+</head>
+<body>
+
+<div style="width:1600px; height:1080px; background:radial-gradient(1300px 760px at 50% 12%, #FBFCFE 0%, #F1F3F9 62%, #EAEDF5 100%); font-family:'Open Sans',system-ui,sans-serif; color:#16202B; padding:34px 44px 36px; display:flex; flex-direction:column;">
+
+  <!-- HEADER LOCKUP -->
+  <div style="display:flex; flex-direction:column; align-items:center; gap:9px;">
+    <div style="display:flex; align-items:center; gap:20px;">
+      <img src="logo_burst.png" alt="Chorus mark" style="height:104px; width:auto; display:block;">
+      <img src="logo_wordmark.png" alt="Chorus" style="height:60px; width:auto; display:block;">
+    </div>
+    <div style="font-size:23px; color:#27313D; text-align:center; line-height:1.2;">An <strong style="font-weight:800;">agentic AI framework</strong> for orchestrating <strong style="font-weight:800;">sequence-to-function</strong> genomic oracles</div>
+    <div style="font-size:14px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#9099A8;">From computational genomics to conversational genomics</div>
+  </div>
+
+  <!-- LAYER 1 — AGENTIC ORCHESTRATION -->
+  <div style="margin-top:20px; background:linear-gradient(118deg,#274F94 0%,#3866AD 42%,#6A52C4 100%); border-radius:16px; padding:18px 24px 16px; box-shadow:0 12px 30px rgba(43,79,148,0.30); color:#FFFFFF;">
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span style="display:inline-block; width:11px; height:11px; border-radius:50%; background:#fff; box-shadow:0 0 12px rgba(255,255,255,0.9);"></span>
+      <span style="font-size:25px; font-weight:800; letter-spacing:0.2px;">Agentic AI orchestration</span>
+      <span style="font-size:13px; font-weight:800; letter-spacing:0.6px; background:rgba(255,255,255,0.20); border:1px solid rgba(255,255,255,0.35); border-radius:30px; padding:4px 13px;">MCP&nbsp;SERVER</span>
+      <span style="font-size:13px; font-weight:800; letter-spacing:0.6px; background:#fff; color:#2B5FA0; border-radius:30px; padding:4px 13px;">23&nbsp;TOOLS</span>
+      <span style="margin-left:auto; font-size:14.5px; font-weight:600; color:rgba(255,255,255,0.92);">Plain language in &nbsp;→&nbsp; comparable, normalised results out</span>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:15px;">
+      <div style="flex:1; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.13); border:1px solid rgba(255,255,255,0.18); border-radius:11px; padding:11px 14px;">
+        <svg width="22" height="22" viewBox="0 0 22 22" style="flex:none;"><circle cx="11" cy="11" r="10" fill="rgba(255,255,255,0.18)"></circle><path d="M6.5 11.3 L9.6 14.4 L15.6 7.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-size:16px; font-weight:700;">Natural language → genomic analysis</span>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.13); border:1px solid rgba(255,255,255,0.18); border-radius:11px; padding:11px 14px;">
+        <svg width="22" height="22" viewBox="0 0 22 22" style="flex:none;"><circle cx="11" cy="11" r="10" fill="rgba(255,255,255,0.18)"></circle><path d="M6.5 11.3 L9.6 14.4 L15.6 7.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-size:16px; font-weight:700;">Autonomous multi-step workflows</span>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.13); border:1px solid rgba(255,255,255,0.18); border-radius:11px; padding:11px 14px;">
+        <svg width="22" height="22" viewBox="0 0 22 22" style="flex:none;"><circle cx="11" cy="11" r="10" fill="rgba(255,255,255,0.18)"></circle><path d="M6.5 11.3 L9.6 14.4 L15.6 7.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-size:16px; font-weight:700;">Cross-model comparison &amp; reasoning</span>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.13); border:1px solid rgba(255,255,255,0.18); border-radius:11px; padding:11px 14px;">
+        <svg width="22" height="22" viewBox="0 0 22 22" style="flex:none;"><circle cx="11" cy="11" r="10" fill="rgba(255,255,255,0.18)"></circle><path d="M6.5 11.3 L9.6 14.4 L15.6 7.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <span style="font-size:16px; font-weight:700;">Interactive genome-browser reports</span>
+      </div>
+    </div>
+    <div style="margin-top:12px; font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.85); text-align:center; letter-spacing:0.2px;">Unified Python API &nbsp;·&nbsp; per-track normalisation &nbsp;·&nbsp; reproducible per-oracle environments</div>
+  </div>
+
+  <!-- CONNECTOR -->
+  <div style="display:flex; justify-content:center; padding:8px 0 6px;">
+    <svg width="26" height="20" viewBox="0 0 26 20"><line x1="13" y1="0" x2="13" y2="12" stroke="#B4BCCA" stroke-width="2.4"></line><path d="M6 9 L13 17 L20 9" fill="none" stroke="#B4BCCA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </div>
+
+  <!-- LAYER 2 — SEVEN ORACLES -->
+  <div>
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:11px;">
+      <span style="font-size:18px; font-weight:800; letter-spacing:0.3px; color:#16202B;">Seven sequence-to-function oracles</span>
+      <span style="flex:1; height:1.5px; background:#DDE1EA;"></span>
+      <span style="font-size:14px; font-weight:600; color:#8A93A2;">ordered by input window · short → long</span>
+    </div>
+
+    <div style="display:flex; gap:12px; align-items:stretch;">
+
+      <!-- LegNet -->
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:13px; box-shadow:0 4px 14px rgba(31,41,51,0.06); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:6px; background:#2E7D46;"></div>
+        <div style="padding:14px 14px 15px; display:flex; flex-direction:column; flex:1;">
+          <div style="font-size:18px; font-weight:800; color:#16202B; line-height:1.15;">LegNet</div>
+          <div style="margin:7px 0 10px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#2E7D46; background:#E8F2EB; border-radius:6px; padding:3px 9px;">Reporter</span></div>
+          <div style="font-size:24px; font-weight:800; color:#2E7D46; font-variant-numeric:tabular-nums; line-height:1;">200<span style="font-size:14px; font-weight:700; color:#9099A8;"> bp</span></div>
+          <div style="height:1px; background:#EDEFF3; margin:11px 0;"></div>
+          <div style="font-size:13.5px; line-height:1.42; color:#56616F;">MPRA / reporter activity of short regulatory elements</div>
+        </div>
+      </div>
+
+      <!-- ChromBPNet / BPNet -->
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:13px; box-shadow:0 4px 14px rgba(31,41,51,0.06); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:6px; background:#1F8E84;"></div>
+        <div style="padding:14px 14px 15px; display:flex; flex-direction:column; flex:1;">
+          <div style="font-size:18px; font-weight:800; color:#16202B; line-height:1.15;">ChromBPNet / BPNet</div>
+          <div style="margin:7px 0 10px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#1F8E84; background:#E2F1EF; border-radius:6px; padding:3px 9px;">Accessibility/TFs</span></div>
+          <div style="font-size:24px; font-weight:800; color:#1F8E84; font-variant-numeric:tabular-nums; line-height:1;">2,114<span style="font-size:14px; font-weight:700; color:#9099A8;"> bp</span></div>
+          <div style="height:1px; background:#EDEFF3; margin:11px 0;"></div>
+          <div style="font-size:13.5px; line-height:1.42; color:#56616F;">Base-pair chromatin accessibility (ChromBPNet) + TF binding (BPNet)</div>
+        </div>
+      </div>
+
+      <!-- EPInformer-seq -->
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:13px; box-shadow:0 4px 14px rgba(31,41,51,0.06); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:6px; background:#2F95CF;"></div>
+        <div style="padding:14px 14px 15px; display:flex; flex-direction:column; flex:1;">
+          <div style="font-size:18px; font-weight:800; color:#16202B; line-height:1.15;">EPInformer-seq</div>
+          <div style="margin:7px 0 10px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#2F95CF; background:#E4F1F9; border-radius:6px; padding:3px 9px;">Enhancer</span></div>
+          <div style="font-size:24px; font-weight:800; color:#2F95CF; font-variant-numeric:tabular-nums; line-height:1;">2,114<span style="font-size:14px; font-weight:700; color:#9099A8;"> bp</span></div>
+          <div style="height:1px; background:#EDEFF3; margin:11px 0;"></div>
+          <div style="font-size:13.5px; line-height:1.42; color:#56616F;">Per-cell enhancer activity (DNase cut-sites + H3K27ac), 11 Roadmap cell types</div>
+        </div>
+      </div>
+
+      <!-- Sei -->
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:13px; box-shadow:0 4px 14px rgba(31,41,51,0.06); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:6px; background:#2B5FA0;"></div>
+        <div style="padding:14px 14px 15px; display:flex; flex-direction:column; flex:1;">
+          <div style="font-size:18px; font-weight:800; color:#16202B; line-height:1.15;">Sei</div>
+          <div style="margin:7px 0 10px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#2B5FA0; background:#E5ECF6; border-radius:6px; padding:3px 9px;">Chromatin profiles</span></div>
+          <div style="font-size:24px; font-weight:800; color:#2B5FA0; font-variant-numeric:tabular-nums; line-height:1;">4,096<span style="font-size:14px; font-weight:700; color:#9099A8;"> bp</span></div>
+          <div style="height:1px; background:#EDEFF3; margin:11px 0;"></div>
+          <div style="font-size:13.5px; line-height:1.42; color:#56616F;">Regulatory effect across 21,907 chromatin profiles</div>
+        </div>
+      </div>
+
+      <!-- Enformer -->
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:13px; box-shadow:0 4px 14px rgba(31,41,51,0.06); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:6px; background:#7A47A0;"></div>
+        <div style="padding:14px 14px 15px; display:flex; flex-direction:column; flex:1;">
+          <div style="font-size:18px; font-weight:800; color:#16202B; line-height:1.15;">Enformer</div>
+          <div style="margin:7px 0 10px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#7A47A0; background:#EFE8F5; border-radius:6px; padding:3px 9px;">Long-range</span></div>
+          <div style="font-size:24px; font-weight:800; color:#7A47A0; font-variant-numeric:tabular-nums; line-height:1;">393,216<span style="font-size:14px; font-weight:700; color:#9099A8;"> bp</span></div>
+          <div style="height:1px; background:#EDEFF3; margin:11px 0;"></div>
+          <div style="font-size:13.5px; line-height:1.42; color:#56616F;">Expression (CAGE), accessibility &amp; histone marks over long context</div>
+        </div>
+      </div>
+
+      <!-- Borzoi -->
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:13px; box-shadow:0 4px 14px rgba(31,41,51,0.06); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:6px; background:#C98A22;"></div>
+        <div style="padding:14px 14px 15px; display:flex; flex-direction:column; flex:1;">
+          <div style="font-size:18px; font-weight:800; color:#16202B; line-height:1.15;">Borzoi</div>
+          <div style="margin:7px 0 10px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#A8741A; background:#F8EFDC; border-radius:6px; padding:3px 9px;">Long-range</span></div>
+          <div style="font-size:24px; font-weight:800; color:#A8741A; font-variant-numeric:tabular-nums; line-height:1;">524,288<span style="font-size:14px; font-weight:700; color:#9099A8;"> bp</span></div>
+          <div style="height:1px; background:#EDEFF3; margin:11px 0;"></div>
+          <div style="font-size:13.5px; line-height:1.42; color:#56616F;">Enformer-style outputs plus RNA-seq coverage</div>
+        </div>
+      </div>
+
+      <!-- AlphaGenome -->
+      <div style="flex:1; background:#FFFFFF; border:2px solid #CF5430; border-radius:13px; box-shadow:0 6px 18px rgba(207,84,48,0.16); display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:6px; background:#CF5430;"></div>
+        <div style="padding:14px 14px 15px; display:flex; flex-direction:column; flex:1;">
+          <div style="font-size:18px; font-weight:800; color:#16202B; line-height:1.15;">AlphaGenome</div>
+          <div style="margin:7px 0 10px;"><span style="font-size:11px; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; color:#fff; background:#CF5430; border-radius:6px; padding:3px 9px;">Generalist</span></div>
+          <div style="font-size:24px; font-weight:800; color:#CF5430; font-variant-numeric:tabular-nums; line-height:1;">1,048,576<span style="font-size:14px; font-weight:700; color:#9099A8;"> bp</span></div>
+          <div style="height:1px; background:#F1E2DB; margin:11px 0;"></div>
+          <div style="font-size:13.5px; line-height:1.42; color:#56616F;">ATAC, DNase, CAGE, RNA-seq, splicing, PRO-CAP, TF/histone ChIP (5,731 tracks)</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTEXT RULER -->
+    <div style="margin-top:13px;">
+      <svg width="100%" height="15" viewBox="0 0 1000 15" preserveAspectRatio="none" style="display:block;"><defs><linearGradient id="rulerGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2E7D46"></stop><stop offset="0.33" stop-color="#2F95CF"></stop><stop offset="0.6" stop-color="#7A47A0"></stop><stop offset="0.82" stop-color="#C98A22"></stop><stop offset="1" stop-color="#CF5430"></stop></linearGradient></defs><polygon points="0,15 1000,0 1000,15" fill="url(#rulerGrad)"></polygon></svg>
+      <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:13px; font-weight:700; color:#8A93A2; font-variant-numeric:tabular-nums;">
+        <span>100 bp</span><span>1 kb</span><span>10 kb</span><span>100 kb</span><span>1 Mb</span>
+      </div>
+      <div style="text-align:center; font-size:13.5px; font-style:italic; color:#7B8493; margin-top:3px;">input context window — spans ~5 orders of magnitude</div>
+    </div>
+  </div>
+
+  <!-- CONNECTOR -->
+  <div style="display:flex; justify-content:center; padding:8px 0 6px;">
+    <svg width="26" height="20" viewBox="0 0 26 20"><line x1="13" y1="0" x2="13" y2="12" stroke="#B4BCCA" stroke-width="2.4"></line><path d="M6 9 L13 17 L20 9" fill="none" stroke="#B4BCCA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </div>
+
+  <!-- LAYER 3 — OUTCOMES -->
+  <div>
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:11px;">
+      <span style="flex:1; height:1.5px; background:#DDE1EA;"></span>
+      <span style="font-size:14px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#6A52C4;">What Chorus produces</span>
+      <span style="flex:1; height:1.5px; background:#DDE1EA;"></span>
+    </div>
+    <div style="display:flex; gap:12px;">
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:12px; padding:14px 15px; display:flex; align-items:center; gap:12px; box-shadow:0 3px 10px rgba(31,41,51,0.05);">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="flex:none;"><rect x="3" y="17" width="5.5" height="9" rx="1.2" fill="#2B5FA0"></rect><rect x="12.2" y="10" width="5.5" height="16" rx="1.2" fill="#2B5FA0"></rect><rect x="21.4" y="5" width="5.5" height="21" rx="1.2" fill="#2B5FA0"></rect></svg>
+        <div style="font-size:15px; font-weight:700; color:#1F2933; line-height:1.25;">Multi-layer variant-effect analysis</div>
+      </div>
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:12px; padding:14px 15px; display:flex; align-items:center; gap:12px; box-shadow:0 3px 10px rgba(31,41,51,0.05);">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="flex:none;"><circle cx="15" cy="15" r="11" fill="none" stroke="#1F8E84" stroke-width="2.1"></circle><circle cx="15" cy="15" r="5.2" fill="none" stroke="#1F8E84" stroke-width="2.1"></circle><circle cx="15" cy="15" r="1.9" fill="#1F8E84"></circle></svg>
+        <div style="font-size:15px; font-weight:700; color:#1F2933; line-height:1.25;">Causal-variant fine-mapping</div>
+      </div>
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:12px; padding:14px 15px; display:flex; align-items:center; gap:12px; box-shadow:0 3px 10px rgba(31,41,51,0.05);">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="flex:none;"><line x1="3" y1="8" x2="27" y2="8" stroke="#6A52C4" stroke-width="2.1"></line><line x1="3" y1="15" x2="27" y2="15" stroke="#6A52C4" stroke-width="2.1"></line><line x1="3" y1="22" x2="27" y2="22" stroke="#6A52C4" stroke-width="2.1"></line><rect x="16" y="4" width="4" height="22" rx="1.2" fill="#6A52C4" fill-opacity="0.4"></rect></svg>
+        <div style="font-size:15px; font-weight:700; color:#1F2933; line-height:1.25;">Cross-oracle consensus &amp; genome browser</div>
+      </div>
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:12px; padding:14px 15px; display:flex; align-items:center; gap:12px; box-shadow:0 3px 10px rgba(31,41,51,0.05);">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="flex:none;"><polygon points="15,3 25,8.5 25,19.5 15,25 5,19.5 5,8.5" fill="none" stroke="#2E7D46" stroke-width="2.1" stroke-linejoin="round"></polygon><circle cx="15" cy="14" r="2.8" fill="#2E7D46"></circle></svg>
+        <div style="font-size:15px; font-weight:700; color:#1F2933; line-height:1.25;">In-silico mutagenesis &amp; sequence design</div>
+      </div>
+      <div style="flex:1; background:#FFFFFF; border:1px solid #E3E7EE; border-radius:12px; padding:14px 15px; display:flex; align-items:center; gap:12px; box-shadow:0 3px 10px rgba(31,41,51,0.05);">
+        <svg width="30" height="30" viewBox="0 0 30 30" style="flex:none;"><circle cx="6" cy="7" r="2.6" fill="#CF5430"></circle><circle cx="6" cy="15" r="2.6" fill="#CF5430"></circle><circle cx="6" cy="23" r="2.6" fill="#CF5430"></circle><polygon points="14,15 24,9 24,21" fill="none" stroke="#CF5430" stroke-width="2.1" stroke-linejoin="round"></polygon><line x1="8.5" y1="7" x2="15" y2="12.5" stroke="#CF5430" stroke-width="1.8"></line><line x1="8.5" y1="15" x2="14" y2="15" stroke="#CF5430" stroke-width="1.8"></line><line x1="8.5" y1="23" x2="15" y2="17.5" stroke="#CF5430" stroke-width="1.8"></line></svg>
+        <div style="font-size:15px; font-weight:700; color:#1F2933; line-height:1.25;">High-throughput VCF / GWAS screening</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
