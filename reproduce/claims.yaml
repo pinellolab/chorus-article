@@ -121,7 +121,7 @@ analysis_B:
   - id: B1_ld_block
     layer: fact
     note: "Article draft said '18 variants in LD r2>0.8, rank-2 ~0.9' — REMOVED. Verified not in the Sniff paper (which resolves the locus to a single variant, PIP=0.51)."
-    prompt: "How many variants are in LD r2>0.8 with rs9504151? (LDlink, 1000G CEU)"
+    prompt: "How many variants are in LD r2 ≥ 0.8 with rs9504151? (LDlink, 1000G CEU)"
     expected: "tight LD block, ~54 (CEU)/49 (EUR) proxies, many at r2=1.0"
     reproduced: "54 unique (CEU, SNVs) / 49 (EUR); rs6913171/rs9502199/rs4960004/... at r2=1.0"
     pass_if: "dozens of proxies, many near r2=1.0 (NOT 18; NOT a clean rank-2 at 0.9)"
