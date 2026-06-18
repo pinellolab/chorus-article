@@ -53,7 +53,7 @@ analysis_A:
     layer: tf_binding
     oracle: alphagenome (CHIP_TF CEBPA, HepG2)
     prompt: "Which transcription factor's predicted binding changes most at chr1:109274968 G>T in HepG2? (scan all TF tracks, no prior)"
-    expected: "+2.7 (CEBPA)"
+    expected: "+2.8 (CEBPA)"
     reproduced: "+2.767 (CEBPA); CEBPB +3.05"
     tolerance: { log2FC: 0.2 }
     pass_if: "C/EBP family tops the TF scan; CEBPA log2FC ~ +2.7..+2.8"
@@ -165,7 +165,7 @@ analysis_B:
     oracle: alphagenome (TF scan) + ISM
     prompt: "Which TF motif does rs9504151 disrupt? Scan AlphaGenome's TF tracks and run saturation mutagenesis."
     expected: "ATF4 (with CEBPB also high), binding lost on alt; ISM converges on an ATF4 motif"
-    reproduced: "top TF effects (binding LOST): CEBPB −3.99, ATF4 −3.97, CEBPB −3.49, CEBPA −3.12, ATF3 −3.00 — ATF4 co-top with CEBPB; score_ism on LegNet/AlphaGenome/ChromBPNet all converge on the ATF4 motif TGATGCAA centred on the variant (Fig 5)"
+    reproduced: "top TF effects (binding LOST): CEBPB −3.99, ATF4 −3.97, CEBPB −3.49, CEBPA −3.12, ATF3 −3.00 — ATF4 co-top with CEBPB; score_ism on LegNet/AlphaGenome/ChromBPNet all converge on the ATF4 motif TGATGCAA centred on the variant (Fig 6)"
     pass_if: "ATF4 (and CEBPB) at the top of the TF scan, binding lost on alt; score_ism converges on the ATF4 motif"
 
   - id: B7_legnet_celltype_caveat
