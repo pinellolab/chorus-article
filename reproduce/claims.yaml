@@ -13,7 +13,10 @@
 # Conventions: chromatin/TF/CAGE/histone effects are log2FC; MPRA is Δ(alt−ref); RNA is lnFC.
 # Variant A: rs12740374  chr1:109274968 G>T  (SORT1 / 1p13 LDL locus)
 # Variant B: rs9504151    chr6:4577675 T>A   (FEV1/FVC / CDYL locus)
-# REQUIRES chorus main >= commit 9f21266 (PRs #91/#92/#93).
+# REQUIRES chorus main (install main): >= 9f21266 (PRs #91/#92/#93) for the per-claim recipes;
+# the conversational fine_map_causal_variant / analyze_variant_multilayer path additionally needs
+# PR #97 (pre-#97 they crash with UnboundLocalError on CAGE + nearby-gene tracks). score_ism (B6/Fig6)
+# needs PR #96. Simplest: install current main.
 
 meta:
   chorus_min_commit: "9f21266"
@@ -96,7 +99,7 @@ analysis_A:
     oracle: alphagenome (RNA-seq, HepG2; gene SORT1)
     prompt: "Does rs12740374 change SORT1 expression? Use AlphaGenome (1 Mb window) with RNA-seq."
     expected: "rises, well under 2-fold"
-    reproduced: "max lnFC ~ +0.59 (~1.8x)"
+    reproduced: "max lnFC is RNA-track-selection-dependent: ~+0.13 (1.1x) to ~+0.59 (1.8x) — always up, always well under 2-fold"
     tolerance: { directional: true }
     pass_if: "SORT1 RNA up; magnitude < 2-fold (the article's underestimation point)"
 
@@ -131,7 +134,7 @@ analysis_B:
     expected: "rs9504151 ranked #1"
     reproduced: "rs9504151 #1/56 (composite 0.995, alt effect −1.363)"
     tolerance: { rank: 1 }
-    pass_if: "rs9504151 is rank #1. Requires PRs #92 (LD alleles + window) and #93."
+    pass_if: "rs9504151 is rank #1. Requires PRs #92 (LD alleles + window), #93, and #97 (pre-#97 the documented fine_map path crashes on the CAGE + nearby-gene branch). Use snvs_only=True for the canonical 56-variant set."
 
   - id: B3_chrombpnet_rank1
     layer: prioritization
