@@ -53,9 +53,11 @@ STEP 3 — Verify every claim.
   RNA is lnFC.
 
 STEP 4 — (Optional) Regenerate the figures from Chorus and confirm they match the claims.
-  Figure 2 (figures/fig_sort1_comparison.png) and Figure 3 (figures/fig_crossoracle_browser.png) are
-  committed in this repo; their numbers must equal reproduce/claims.yaml (Analysis A). To regenerate
-  from scratch instead of trusting them:
+  The data figures (Fig 2 TF scan, Fig 3 predictions-vs-ground-truth, Fig 4 multitrack browser, Fig 5
+  fine-map table, Fig 6 ISM logos) are committed in figures/; their numbers must equal
+  reproduce/claims.yaml. The multi-oracle browser (Fig 4) + consensus come from the report below;
+  the analysis panels (Figs 2/5/6) come from scripts/regenerate_analysis_figures.py. To regenerate
+  the multi-oracle report from scratch:
     # in the chorus repo (needs the multi-oracle native-window fix; see note below)
     mamba run -n chorus-legnet      python scripts/regenerate_multioracle.py --oracle legnet
     mamba run -n chorus-chrombpnet  python scripts/regenerate_multioracle.py --oracle chrombpnet
