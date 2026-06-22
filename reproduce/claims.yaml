@@ -92,11 +92,12 @@ analysis_A:
 
   - id: A6_alphagenome_cage
     layer: tss_activity
-    oracle: alphagenome (CAGE, HepG2)
-    expected: "+1.52"   # article draft said +1.47; corrected to +1.52
-    reproduced: "+1.525"
+    oracle: alphagenome (CAGE − strand, HepG2)
+    note: "CAGE is strand-specific. +1.52 is the MINUS strand (CAGE/hCAGE EFO:0001187/-), the biologically relevant strand for the minus-strand SORT1/CELSR2/PSRC1 locus; the + strand scores +1.22 (same 501 bp / sum / log2FC scorer — pure strand difference). regenerate_multioracle requests the - strand (chorus >= PR #101)."
+    expected: "+1.52"   # article draft said +1.47; corrected to +1.52 (− strand)
+    reproduced: "+1.52 (− strand; the + strand gives +1.22)"
     tolerance: { log2FC: 0.1 }
-    pass_if: "eRNA/CAGE increases on alt; log2FC ~ +1.52"
+    pass_if: "eRNA/CAGE increases on alt; − strand log2FC ~ +1.52"
 
   - id: A7_legnet_mpra
     layer: promoter_activity
