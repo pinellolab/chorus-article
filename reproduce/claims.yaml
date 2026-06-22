@@ -1,9 +1,22 @@
 # Reproduction manifest for blog post 2026-006 ("Chorus: chatting with genomic oracles")
 #
+# This file SUPPORTS the article's copy-paste prompts — it is an internal verification manifest.
+# Readers use the article, not this file. Every claim is produced by one of the article's prompts:
+#   A1            <- SORT1 Step 1 ("which cell types change accessibility")
+#   A3, A4, A9    <- SORT1 Step 2 ("which transcription factor binds")
+#   A6, A8, A10   <- SORT1 Step 3 ("which nearby gene's expression is most affected")
+#   A2, A5, A7    <- the multi-oracle comparison behind Figure 3 (score across ChromBPNet/LegNet/AlphaGenome)
+#   B1, B2, B4, B5 <- rs9504151 Step 1 ("fine-map the credible set; which variant ranks first")
+#   B3, B7        <- rs9504151 Step 2 ("re-score with a lung-fibroblast ChromBPNet model")
+#   B6            <- rs9504151 Step 3 ("which TF motif does it disrupt; scan TF + run ISM")
+#   F1-F4         <- repo/spec facts (list_oracles, track count, tool count, oracle specs)
+# B4/B5 quantify the mechanism Step 1's prose states qualitatively ("accessibility and active histone
+# marks drop on the alt allele; no significant expression change") — kept as backing, not pruned.
+#
 # Each claim has:
 #   id            — stable identifier
 #   layer/oracle  — what is measured, by which oracle
-#   prompt        — the conversational prompt a reader/agent gives (drives the MCP path)
+#   prompt        — the article's copy-paste prompt that produces this claim (verbatim where a claim maps 1:1 to a step)
 #   python_recipe — a deterministic Python call (use this for an exact numeric check)
 #   expected      — the value the article reports
 #   reproduced    — the value an independent re-run got (2026-06-17, chorus main @ 9f21266)
@@ -52,7 +65,7 @@ analysis_A:
   - id: A3_alphagenome_cebp
     layer: tf_binding
     oracle: alphagenome (CHIP_TF CEBPA, HepG2)
-    prompt: "Which transcription factor's predicted binding changes most at chr1:109274968 G>T in HepG2? (scan all TF tracks, no prior)"
+    prompt: "HepG2 looks interesting. Which transcription factor's predicted binding changes most at the variant?"
     expected: "+2.8 (CEBPA)"
     reproduced: "+2.767 (CEBPA); CEBPB +3.05"
     tolerance: { log2FC: 0.2 }
@@ -97,7 +110,7 @@ analysis_A:
   - id: A8_alphagenome_sort1_rna
     layer: gene_expression
     oracle: alphagenome (RNA-seq, HepG2; gene SORT1)
-    prompt: "Does rs12740374 change SORT1 expression? Use AlphaGenome (1 Mb window) with RNA-seq."
+    prompt: "Which nearby gene's expression is most affected? Use a long-context oracle with CAGE and RNA-seq."
     expected: "rises, well under 2-fold"
     reproduced: "max lnFC is RNA-track-selection-dependent: ~+0.13 (1.1x) to ~+0.59 (1.8x) — always up, always well under 2-fold"
     tolerance: { directional: true }
