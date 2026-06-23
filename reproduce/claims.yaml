@@ -7,7 +7,7 @@
 #   A6, A8, A10   <- SORT1 Step 3 ("which nearby gene's expression is most affected")
 #   A2, A5, A7    <- the multi-oracle comparison behind Figure 3 (score across ChromBPNet/LegNet/AlphaGenome)
 #   B1, B2, B4, B5 <- rs9504151 Step 1 ("fine-map the credible set; which variant ranks first")
-#   B3, B7        <- rs9504151 Step 2 ("re-score with a lung-fibroblast ChromBPNet model")
+#   B3, B7, B7b   <- rs9504151 Step 2 ("re-score with a lung-fibroblast ChromBPNet model")
 #   B6            <- rs9504151 Step 3 ("which TF motif does it disrupt; scan TF + run ISM")
 #   F1-F4         <- repo/spec facts (list_oracles, track count, tool count, oracle specs)
 # B4/B5 quantify the mechanism Step 1's prose states qualitatively ("accessibility and active histone
@@ -188,6 +188,14 @@ analysis_B:
     expected: "LegNet has no lung fibroblast (panel = K562, HepG2, WTC11), so its evidence is cell-type-mismatched"
     reproduced: "LEGNET_AVAILABLE_CELLTYPES = ['K562','HepG2','WTC11']"
     pass_if: "LegNet panel is exactly K562/HepG2/WTC11; no lung fibroblast"
+
+  - id: B7b_legnet_hepg2_rank
+    layer: promoter_activity
+    oracle: legnet (LentiMPRA, HepG2)
+    note: "Backs Step-2's 'ranked second under the HepG2-trained LegNet model' — verified on ml008 (chorus main @ 3bab6c0)."
+    expected: "rs9504151 is NOT #1 under the cell-type-mismatched HepG2 LegNet (it is #1 only in the cell-type-matched oracles)"
+    reproduced: "rs9504151 = rank #2 of 56 by |ΔLegNet HepG2| (forward strand; rs11751457 #1 by ~2.9x); #3 with reverse-complement averaging — behind a proxy either way, consistent with the cell-type mismatch"
+    pass_if: "rs9504151 is not rank 1 under LegNet HepG2 (ranks 2-3, behind a proxy)"
 
 # ─────────────────────────── Repo / spec facts ───────────────────────────
 facts:
